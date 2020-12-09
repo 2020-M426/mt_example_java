@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'ch.bbzw.m426'
+version '0.1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+}
+
+test {
+}
