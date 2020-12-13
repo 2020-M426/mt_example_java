@@ -7,10 +7,10 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -68,7 +68,7 @@ public class MultiThreading {
             final String url = String.format("https://httpbin.org/status/%d", 200 + i);
             responseList.add(client.send(HttpRequest.newBuilder(URI.create(url)).build(), HttpResponse.BodyHandlers.discarding()));
         }
-        final Set<Integer> statusCodes = responseList.stream().map(HttpResponse::statusCode).collect(Collectors.toSet());
+        final Set<Integer> statusCodes = responseList.stream().map(HttpResponse::statusCode).collect(Collectors.toUnmodifiableSet());
         end = Instant.now();
         System.out.printf("Duration: %s%n", Duration.between(start, end).toMillis());
         assert statusCodes.size() == 50;
